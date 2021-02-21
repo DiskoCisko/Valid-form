@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="rus">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <form class="form-container">
+            <fieldset>
+                <legend>Нашли или потеряли</legend>
+                <input type="radio" required name="title" id="r1" value="lost"><label for="r1">Потерял</label>
+                <input type="radio" required name="title" id="r2" value="find"><label for="r2">Нашёл</label>
+              </fieldset>
+            <label for="email" class="form-lable">Email</label>
+            <input id="email" class="input-lable" name="email" required type="email">
+            <label for="pasword" class="form-lable">Pasword</label>
+            <input id="pasword" class="input-lable" name="pasword" required minlength="6" type="password">
+            <button class="btn">Submit</button>
+        </form>
+    </div>
+    <script src="valid.js"></script>
+</body>
+</html>
