@@ -15,27 +15,30 @@ let errorMassegeRequired = 'Заполните форму';
 let r1 = document.querySelector('#r1');
 let r2 = document.querySelector('#r2');
 
-email.addEventListener('input', function(event){
+ function checkEmail() {
     console.dir(email.validity) 
     console.dir(email.checkValidity())
     if (email.validity.typeMismatch) {
         email.setCustomValidity(errorMassegeEmail);
-        email.classList.toggle('error');
+        email.classList.add('error');
         spanErrorEmail.innerText = errorMassegeEmail;
         email.insertAdjacentElement('afterend', spanErrorEmail);
         console.dir(email.validationMessage)
-    } else {
+    } 
+    else if(email.validity.valueMissing) {
+        spanErrorRequiredEmail.innerText = errorMassegeRequired;
+        email.insertAdjacentElement('afterend', spanErrorRequiredEmail);
+        email.classList.add('error');
+    }
+    else {
         email.setCustomValidity('');
         spanErrorEmail.remove();
-        email.classList.toggle('error');
+        email.classList.remove('error');
+        spanErrorRequiredEmail.remove();
     }
-})
-
-form.onsubmit= function(e){
-    e.preventDefault();
 }
 
-btnSubmit.addEventListener('click', function(event){
+function checkRadioInput(){
     if (!r1.checkValidity()) {
         radioInput.classList.toggle('error');
         spanErrorRequired.innerText = errorMassegeRequired;
@@ -46,9 +49,15 @@ btnSubmit.addEventListener('click', function(event){
     }
     console.dir(r1.checkValidity());
     console.dir(email.validity);
-})
+}
 
-btnSubmit.addEventListener('click', function(){
+function chekBtn() {
+    checkRadioInput();
+    checkEmailRequir();
+    checkPasswordRequired();
+}
+
+function checkEmailRequir(){
     if(email.validity.valueMissing) {
         spanErrorRequiredEmail.innerText = errorMassegeRequired;
         email.insertAdjacentElement('afterend', spanErrorRequiredEmail);
@@ -57,20 +66,9 @@ btnSubmit.addEventListener('click', function(){
         email.classList.remove('error');
         spanErrorRequiredEmail.remove();
     }
-})
+}
 
-email.addEventListener('input', function(){
-    if(email.validity.valueMissing) {
-        spanErrorRequiredEmail.innerText = errorMassegeRequired;
-        email.insertAdjacentElement('afterend', spanErrorRequiredEmail);
-        email.classList.toggle('error');
-    } else {
-        email.classList.remove('error');
-        spanErrorRequiredEmail.remove();
-    }
-})
-
-btnSubmit.addEventListener('click', function(){
+function checkPasswordRequired(){
     if (passwordInput.validity.valueMissing) {
         spanErrorRequiredPassword.innerText = errorMassegeRequired;
         passwordInput.insertAdjacentElement('afterend', spanErrorRequiredPassword);
@@ -79,9 +77,9 @@ btnSubmit.addEventListener('click', function(){
         passwordInput.classList.remove('error');
         spanErrorRequiredPassword.remove();
     }
-})
+}
 
-passwordInput.addEventListener('input', function(){
+function checkPassowrdRequired(){
     if(passwordInput.validity.valueMissing) {
         spanErrorRequiredPassword.innerText = errorMassegeRequired;
         passwordInput.insertAdjacentElement('afterend', spanErrorRequiredPassword);
@@ -90,13 +88,25 @@ passwordInput.addEventListener('input', function(){
         passwordInput.classList.remove('error');
         spanErrorRequiredPassword.remove();
     }
-})
+}
 
-radioInput.addEventListener('input', function(e){
+function chekradioRequired(e){
     if (!radioInput.validity.valueMissing) {
         radioInput.classList.remove('error');
         spanErrorRequired.remove()
     }
     console.dir(e.target.validity)
-})
-//console.dir(email)
+}
+
+email.addEventListener('input', checkEmail)
+
+form.onsubmit= function(e){
+    e.preventDefault();
+}
+
+btnSubmit.addEventListener('click', chekBtn);
+
+passwordInput.addEventListener('input', checkPassowrdRequired);
+
+radioInput.addEventListener('input', chekradioRequired);
+
